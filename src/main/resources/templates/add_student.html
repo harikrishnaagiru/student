@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            height: 100vh;
+            background: linear-gradient(135deg, #0f0f3d, #1a1a5e);
+            color: #fff;
+        }
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: rgba(30, 30, 60, 0.9);
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .sidebar h2 {
+            color: #f8b400;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .sidebar a {
+            display: block;
+            padding: 12px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .sidebar a:hover {
+            background: rgba(255, 165, 0, 0.3);
+        }
+        /* Header */
+        .header {
+            width: calc(100% - 250px);
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 250px;
+            z-index: 1000;
+        }
+        .header h1 {
+            color: #f8b400;
+        }
+        .logout-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .logout-btn:hover {
+            transform: scale(1.1);
+        }
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            margin-left: 250px;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .form-container {
+            width: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin: 50px auto 20px;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #1dd1a1, #10ac84);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .form-container button:hover {
+            transform: scale(1.05);
+        }
+        .back-home {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #36d1dc, #5b86e5);
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .back-home:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <a href="view_attendance.html">View Attendance</a>
+        <a href="add_student.html">Add Student</a>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <h1>Add Student</h1>
+            <form method="post" action="/logout">
+                <button class="logout-btn" type="submit">Logout</button>
+            </form>
+        </div>
+        <div class="form-container">
+            <form action="/addStudent" method="POST">
+                <label for="studentName">Student Name:</label>
+                <input type="text" id="studentName" name="name" placeholder="Enter Student Name" required>
+                <button type="submit">Add</button>
+            </form>
+            <a href="/" class="back-home">⬅ Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

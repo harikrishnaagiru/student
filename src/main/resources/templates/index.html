@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance</title>
+    <script src="/js/scripts.js" defer></script>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            display: flex;
+            height: 100vh;
+            background: linear-gradient(135deg, #0f0f3d, #1a1a5e);
+            color: #fff;
+        }
+        /* Header */
+        .header {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between; /* Space between heading and logout */
+            align-items: center;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .header h1 {
+            color: #f8b400;
+            margin: 0; /* Remove any default margin */
+            text-align: center;
+            flex-grow: 1; /* Allow the heading to take up available space */
+        }
+        .logout-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-left: 20px; /* Add gap between heading and logout */
+        }
+        .logout-btn:hover {
+            transform: scale(1.1);
+        }
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 80px 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .container {
+            width: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin: 50px auto 20px;
+        }
+        .container input {
+            width: 80%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+        }
+        .container button {
+            margin-top: 10px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #1dd1a1, #10ac84);
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+        .container button:hover {
+            transform: scale(1.05);
+        }
+        .table-container {
+            width: 80%;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        th {
+            color: #f8b400;
+        }
+        .toggle-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .present {
+            background: #1dd1a1;
+        }
+        .absent {
+            background: #ff4b2b;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        fetch("/")
+            .then(response => {
+                if (!response.ok) {
+                    window.location.href = "/login";
+                }
+            });
+    </script>
+    <div class="main-content">
+        <div class="header">
+            <h1>Student Attendance</h1>
+            <form method="post" action="/logout">
+                <button class="logout-btn" type="submit">Logout</button>
+            </form>
+        </div>
+        <div class="container">
+            <h2>Add Student</h2>
+            <form action="/addStudent" method="post">
+                <input type="text" name="name" placeholder="Student Name" required>
+                <button type="submit">Add Student</button>
+            </form>
+        </div>
+        <div class="table-container">
+            <table>
+                <tr><th>Name</th><th>Attendance</th></tr>
+                <th:block th:each="student : ${students}">
+                    <tr>
+                        <td th:text="${student.name}"></td>
+                        <td>
+                            <button th:id="'toggle-' + ${student.id}"
+                                    th:text="${student.attendance} ? 'Present' : 'Absent'"
+                                    th:class="${student.attendance} ? 'toggle-btn present' : 'toggle-btn absent'"
+                                    th:attr="onclick='toggleAttendance(' + ${student.id} + ')'">
+                            </button>
+                        </td>
+                    </tr>
+                </th:block>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
