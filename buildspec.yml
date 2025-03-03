@@ -1,0 +1,39 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Downloading runtime-versions..."
+      - apt update -y
+      - apt install -y openjdk-17-jdk maven
+    finally:
+      - echo "....................runtime completed...................................."
+
+  pre_build:
+    commands:
+      - echo "Running pre-build steps..."
+      - pwd
+      - chmod +x scripts/*.sh
+      - ls -latR
+      - pwd
+      - echo ".....................pre-build completed.................................."
+    finally:
+      - echo "pre-build completed"
+      
+  build:
+    commands:
+      - echo "Building the project..."
+      - mvn package -DskipTests
+    finally:
+      - echo "..............................build completed ..................................."
+
+  post_build:
+    commands:
+      - echo "Build completed successfully"
+      - echo "Uploading artifact to S3..."
+      - pwd
+      - aws s3 cp target/*.jar s3://studentattendanceapp/
+    finally:
+      - echo "..............................post-build completed.................................."
+
+
