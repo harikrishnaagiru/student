@@ -8,3 +8,4 @@ aws s3 cp s3://studentattendanceapp/StudentAttendanceApp-1.0.jar /home/ubuntu/st
 
 echo "Setting permissions for the JAR file..."
 chmod +x /home/ubuntu/studentapp/StudentAttendanceApp-1.0.jar
+
