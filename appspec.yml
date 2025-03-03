@@ -3,14 +3,14 @@ os: linux
 
 hooks:
   BeforeInstall:
-    - location: scripts/stop_app.sh
+    - location: scripts/stop.sh
       timeout: 300
       runas: ubuntu
-    - location: scripts/copy_from_s3.sh
+    - location: scripts/copy.sh
       timeout: 300
       runas: ubuntu
 
   AfterInstall:
-    - location: scripts/restart_app.sh
+    - location: scripts/restart.sh
       timeout: 300
       runas: ubuntu
